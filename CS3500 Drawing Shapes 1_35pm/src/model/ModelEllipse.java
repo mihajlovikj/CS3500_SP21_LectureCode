@@ -3,7 +3,7 @@ package model;
 import java.awt.Color;
 import java.awt.geom.Ellipse2D;
 
-public class ModelEllipse extends Ellipse2D.Float implements IModelShape {
+public class ModelEllipse extends Ellipse2D.Float implements IMotionShape {
   private final Color color;
 
   public ModelEllipse(int x, int y, int w, int h, Color color) {
@@ -17,12 +17,32 @@ public class ModelEllipse extends Ellipse2D.Float implements IModelShape {
   }
 
   @Override
-  public IModelShape transform(int tick) {
-    return new ModelEllipse((int)this.x + tick*2, (int)this.y + tick*2, (int)this.width, (int)this.height, this.color);
+  public ModelShapeType getType() {
+    return ModelShapeType.OVAL;
   }
 
   @Override
-  public ModelShapeType getType() {
-    return ModelShapeType.OVAL;
+  public IReadOnlyModelShape makeShape(int x, int y, int w, int h, Color color) {
+    return new ModelEllipse(x, y, w, h, color);
+  }
+
+  @Override
+  public void setX(int x) {
+    this.x = x;
+  }
+
+  @Override
+  public void setY(int y) {
+    this.y = y;
+  }
+
+  @Override
+  public void setW(int w) {
+    this.width = w;
+  }
+
+  @Override
+  public void setH(int h) {
+    this.height = h;
   }
 }
